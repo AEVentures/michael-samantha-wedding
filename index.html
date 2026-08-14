@@ -129,14 +129,44 @@
   @keyframes eq{0%,100%{height:4px}50%{height:14px}}
   #quartet .lbl{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:.95rem;letter-spacing:.04em}
   @media(max-width:560px){#quartet .lbl{display:none}#quartet{padding:10px 12px}}
+
+  /* Music drawer */
+  #musicDrawer{position:fixed;bottom:76px;right:22px;z-index:59;width:min(420px,calc(100vw - 44px));
+    background:rgba(6,13,28,.94);backdrop-filter:blur(14px);border:1px solid rgba(201,168,106,.35);
+    border-radius:16px;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.5);
+    opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .3s,transform .3s}
+  #musicDrawer.open{opacity:1;transform:translateY(0);pointer-events:auto}
+  #musicDrawer .dhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+  #musicDrawer .dtitle{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:1.05rem}
+  #musicDrawer .dsub{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--seaglass)}
+  #musicDrawer .player{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1px solid rgba(201,168,106,.25)}
+  #musicDrawer .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  #musicDrawer .setlist{margin-top:12px;font-size:.76rem;color:#c9ccd2;line-height:1.9}
+  #musicDrawer .setlist span{color:var(--gold);margin-right:8px}
 </style>
 </head>
 <body>
 
-<button id="quartet" type="button" aria-pressed="false" aria-label="Play string quartet music — Pachelbel's Canon in D">
+<button id="quartet" type="button" aria-expanded="false" aria-controls="musicDrawer" aria-label="Open the wedding quartet music player">
   <span class="disc" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
-  <span class="lbl">The Quartet · Canon in D</span>
+  <span class="lbl">The Quartet</span>
 </button>
+
+<div id="musicDrawer" role="region" aria-label="Wedding quartet music player">
+  <div class="dhead">
+    <span class="dtitle">The Wedding Quartet</span>
+    <span class="dsub">Live Performances</span>
+  </div>
+  <div class="player" id="playerBox"></div>
+  <div class="setlist">
+    <div><span>I</span>Pachelbel — Canon in D · Vetta Quartet</div>
+    <div><span>II</span>Bach — Air on the G String · Voices of Music</div>
+    <div><span>III</span>Schubert — Ave Maria · Anastasiya Petryshak</div>
+    <div><span>IV</span>Bach — Jesu, Joy of Man's Desiring</div>
+    <div><span>V</span>Wagner — Bridal Chorus · Wedding String Quartet</div>
+    <div><span>VI</span>Pachelbel — Canon in D (encore) · Brooklyn Duo</div>
+  </div>
+</div>
 
 <nav>
   <div class="wrap">
@@ -430,107 +460,33 @@
     a.download='Michael-Samantha-Wedding-2028.ics';a.click();
   });
 
-  // ————— The Quartet: Pachelbel's Canon in D, performed live by the page —————
-  // The composition (1680) is public domain. Three violin voices enter in canon,
-  // one ground apart, over a cello playing the eternal eight-note bass — the
-  // same notes, forever: the Canon is itself an infinity.
-  var QuartetEngine = (function(){
-    var ctx=null,master=null,wet=null,playing=false,timer=null,nextBeat=0,startTime=0;
-    var TEMPO=57, BEAT=60/TEMPO, LOOK=0.35, TICK=90;
-    // Ground bass: D3 A2 B2 F#2 G2 D2 G2 A2 — one note per beat, loops forever
-    var GROUND=[50,45,47,42,43,38,43,45];
-    // Violin line (midi, beats). 48 beats = six grounds; voices enter 8 beats apart.
-    var LINE=[
-      // First strain — the famous descending theme, in quarters
-      [78,1],[76,1],[74,1],[73,1],[71,1],[69,1],[71,1],[73,1],
-      [74,1],[73,1],[71,1],[69,1],[67,1],[66,1],[67,1],[64,1],
-      // Second strain — flowing eighths through the harmony
-      [66,.5],[69,.5],[74,.5],[73,.5],[74,.5],[78,.5],[76,.5],[73,.5],
-      [71,.5],[74,.5],[76,.5],[74,.5],[73,.5],[69,.5],[66,.5],[69,.5],
-      [67,.5],[71,.5],[74,.5],[71,.5],[69,.5],[66,.5],[62,.5],[66,.5],
-      [67,.5],[64,.5],[67,.5],[71,.5],[69,.5],[73,.5],[76,.5],[73,.5],
-      // Third strain — echoes of the theme, falling in pairs
-      [78,.5],[74,.5],[76,.5],[73,.5],[74,.5],[71,.5],[73,.5],[69,.5],
-      [71,.5],[67,.5],[69,.5],[66,.5],[67,.5],[64,.5],[66,.5],[62,.5],
-      [67,.5],[71,.5],[74,.5],[78,.5],[76,.5],[74,.5],[76,.5],[73,.5],
-      [74,1],[73,1],[76,1],[73,1]
-    ];
-    var LOOP=48, ENTRIES=[0,8,16], VOICE_GAIN=[.30,.24,.19];
-    // Precompute per-voice beat index -> note starts
-    var starts=[]; (function(){var b=0;LINE.forEach(function(n){starts.push({beat:b,midi:n[0],dur:n[1]});b+=n[1];});})();
-    function hz(m){return 440*Math.pow(2,(m-69)/12)}
-    function init(){
-      ctx=new (window.AudioContext||window.webkitAudioContext)();
-      master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
-      // Warm hall: two feedback delays, low-passed
-      wet=ctx.createGain();wet.gain.value=.5;
-      var d1=ctx.createDelay(1),d2=ctx.createDelay(1),f1=ctx.createGain(),f2=ctx.createGain(),lp=ctx.createBiquadFilter();
-      d1.delayTime.value=.23;d2.delayTime.value=.37;f1.gain.value=.42;f2.gain.value=.34;
-      lp.type='lowpass';lp.frequency.value=2600;
-      wet.connect(d1);wet.connect(d2);d1.connect(f1);f1.connect(d1);d2.connect(f2);f2.connect(d2);
-      d1.connect(lp);d2.connect(lp);lp.connect(master);
+  // ————— The Quartet: real wedding performances, played from YouTube —————
+  // A curated setlist of beloved recordings by real ensembles. YouTube handles
+  // all licensing; perfect for a personal, non-commercial site.
+  var SETLIST=['Xu5TlSXEzzs','pzlw6fUux4o','Jdy-tiwPD5o','sAqKCq7rDxQ','6EfZi3GU_Eg','Ptk_1Dc2iPY'];
+  var qBtn=document.getElementById('quartet'),drawer=document.getElementById('musicDrawer'),
+      playerBox=document.getElementById('playerBox'),playerFrame=null;
+  function buildPlayer(){
+    playerFrame=document.createElement('iframe');
+    playerFrame.allow='autoplay; encrypted-media; picture-in-picture';
+    playerFrame.allowFullscreen=true;
+    playerFrame.title='The Wedding Quartet — curated performances';
+    playerFrame.src='https://www.youtube.com/embed/'+SETLIST[0]
+      +'?playlist='+SETLIST.slice(1).join(',')
+      +'&autoplay=1&rel=0&color=white&iv_load_policy=3&enablejsapi=1';
+    playerBox.appendChild(playerFrame);
+  }
+  function pausePlayer(){
+    if(playerFrame&&playerFrame.contentWindow){
+      playerFrame.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:[]}),'*');
     }
-    function bow(freq,when,dur,gain,bright){
-      // Two detuned saws through a lowpass with slow bow attack, gentle vibrato
-      var o1=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();
-      o1.type='sawtooth';o2.type='sawtooth';
-      o1.frequency.value=freq;o2.frequency.value=freq;o1.detune.value=-5;o2.detune.value=5;
-      var lfo=ctx.createOscillator(),lg=ctx.createGain();
-      lfo.frequency.value=4.6;lg.gain.value=freq*.004;lfo.connect(lg);lg.connect(o1.frequency);lg.connect(o2.frequency);
-      f.type='lowpass';f.frequency.value=bright?Math.min(freq*4.5,2400):520;f.Q.value=.7;
-      var a=Math.min(.16,dur*.25),rel=Math.min(.5,dur*.6),end=when+dur;
-      g.gain.setValueAtTime(0,when);
-      g.gain.linearRampToValueAtTime(gain,when+a);
-      g.gain.setValueAtTime(gain*.92,Math.max(when+a,end-rel));
-      g.gain.linearRampToValueAtTime(0,end+.08);
-      o1.connect(f);o2.connect(f);f.connect(g);g.connect(master);g.connect(wet);
-      o1.start(when);o2.start(when);lfo.start(when);
-      o1.stop(end+.15);o2.stop(end+.15);lfo.stop(end+.15);
-    }
-    function schedule(){
-      while(startTime+nextBeat*BEAT < ctx.currentTime+LOOK){
-        var t=startTime+nextBeat*BEAT;
-        // Cello ground — enters immediately, walks forever
-        bow(hz(GROUND[nextBeat%8]),t,BEAT*1.02,.34,false);
-        // Violins in canon
-        for(var v=0;v<3;v++){
-          var local=nextBeat-ENTRIES[v];
-          if(local<0)continue;
-          var pos=local%LOOP;
-          for(var i=0;i<starts.length;i++){
-            var n=starts[i];
-            if(n.beat>=pos+1)break;
-            if(n.beat>=pos){bow(hz(n.midi),t+(n.beat-pos)*BEAT,n.dur*BEAT*.98,VOICE_GAIN[v],true);}
-          }
-        }
-        nextBeat++;
-      }
-    }
-    return {
-      toggle:function(){
-        if(!ctx)init();
-        if(ctx.state==='suspended')ctx.resume();
-        if(!playing){
-          playing=true;nextBeat=0;startTime=ctx.currentTime+.1;
-          master.gain.cancelScheduledValues(ctx.currentTime);
-          master.gain.setValueAtTime(0,ctx.currentTime);
-          master.gain.linearRampToValueAtTime(.5,ctx.currentTime+2.5);
-          timer=setInterval(schedule,TICK);schedule();
-        }else{
-          playing=false;clearInterval(timer);
-          master.gain.cancelScheduledValues(ctx.currentTime);
-          master.gain.setValueAtTime(master.gain.value,ctx.currentTime);
-          master.gain.linearRampToValueAtTime(0,ctx.currentTime+1.2);
-        }
-        return playing;
-      }
-    };
-  })();
-  var qBtn=document.getElementById('quartet');
+  }
   qBtn.addEventListener('click',function(){
-    var on=QuartetEngine.toggle();
-    qBtn.classList.toggle('playing',on);
-    qBtn.setAttribute('aria-pressed',on?'true':'false');
+    var open=drawer.classList.toggle('open');
+    qBtn.classList.toggle('playing',open);
+    qBtn.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&!playerFrame)buildPlayer();
+    if(!open)pausePlayer();
   });
 
   // Share
