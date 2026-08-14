@@ -114,9 +114,29 @@
   footer p{font-size:.78rem;color:var(--seaglass);margin-top:10px}
   .verse{font-style:italic;color:var(--rose);font-family:'Cormorant Garamond',serif;font-size:1.15rem}
   .michael-line{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--foam);font-size:1.02rem;max-width:560px;margin:18px auto 0}
+
+  /* Quartet music toggle */
+  #quartet{position:fixed;bottom:22px;right:22px;z-index:60;display:flex;align-items:center;gap:10px;
+    background:rgba(6,13,28,.85);backdrop-filter:blur(10px);border:1px solid rgba(201,168,106,.45);
+    border-radius:99px;padding:10px 18px 10px 12px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+  #quartet:hover{border-color:var(--gold);box-shadow:0 4px 24px rgba(201,168,106,.25)}
+  #quartet .disc{width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,106,.6);
+    display:flex;align-items:flex-end;justify-content:center;gap:2px;padding:8px 7px}
+  #quartet .bar{width:3px;height:4px;background:var(--gold-soft);border-radius:2px;transition:height .2s}
+  #quartet.playing .bar{animation:eq 1.1s ease-in-out infinite}
+  #quartet.playing .bar:nth-child(2){animation-delay:.25s}
+  #quartet.playing .bar:nth-child(3){animation-delay:.5s}
+  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
+  #quartet .lbl{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:.95rem;letter-spacing:.04em}
+  @media(max-width:560px){#quartet .lbl{display:none}#quartet{padding:10px 12px}}
 </style>
 </head>
 <body>
+
+<button id="quartet" type="button" aria-pressed="false" aria-label="Play string quartet music — Pachelbel's Canon in D">
+  <span class="disc" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+  <span class="lbl">The Quartet · Canon in D</span>
+</button>
 
 <nav>
   <div class="wrap">
@@ -408,6 +428,109 @@
     var a=document.createElement('a');
     a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
     a.download='Michael-Samantha-Wedding-2028.ics';a.click();
+  });
+
+  // ————— The Quartet: Pachelbel's Canon in D, performed live by the page —————
+  // The composition (1680) is public domain. Three violin voices enter in canon,
+  // one ground apart, over a cello playing the eternal eight-note bass — the
+  // same notes, forever: the Canon is itself an infinity.
+  var QuartetEngine = (function(){
+    var ctx=null,master=null,wet=null,playing=false,timer=null,nextBeat=0,startTime=0;
+    var TEMPO=57, BEAT=60/TEMPO, LOOK=0.35, TICK=90;
+    // Ground bass: D3 A2 B2 F#2 G2 D2 G2 A2 — one note per beat, loops forever
+    var GROUND=[50,45,47,42,43,38,43,45];
+    // Violin line (midi, beats). 48 beats = six grounds; voices enter 8 beats apart.
+    var LINE=[
+      // First strain — the famous descending theme, in quarters
+      [78,1],[76,1],[74,1],[73,1],[71,1],[69,1],[71,1],[73,1],
+      [74,1],[73,1],[71,1],[69,1],[67,1],[66,1],[67,1],[64,1],
+      // Second strain — flowing eighths through the harmony
+      [66,.5],[69,.5],[74,.5],[73,.5],[74,.5],[78,.5],[76,.5],[73,.5],
+      [71,.5],[74,.5],[76,.5],[74,.5],[73,.5],[69,.5],[66,.5],[69,.5],
+      [67,.5],[71,.5],[74,.5],[71,.5],[69,.5],[66,.5],[62,.5],[66,.5],
+      [67,.5],[64,.5],[67,.5],[71,.5],[69,.5],[73,.5],[76,.5],[73,.5],
+      // Third strain — echoes of the theme, falling in pairs
+      [78,.5],[74,.5],[76,.5],[73,.5],[74,.5],[71,.5],[73,.5],[69,.5],
+      [71,.5],[67,.5],[69,.5],[66,.5],[67,.5],[64,.5],[66,.5],[62,.5],
+      [67,.5],[71,.5],[74,.5],[78,.5],[76,.5],[74,.5],[76,.5],[73,.5],
+      [74,1],[73,1],[76,1],[73,1]
+    ];
+    var LOOP=48, ENTRIES=[0,8,16], VOICE_GAIN=[.30,.24,.19];
+    // Precompute per-voice beat index -> note starts
+    var starts=[]; (function(){var b=0;LINE.forEach(function(n){starts.push({beat:b,midi:n[0],dur:n[1]});b+=n[1];});})();
+    function hz(m){return 440*Math.pow(2,(m-69)/12)}
+    function init(){
+      ctx=new (window.AudioContext||window.webkitAudioContext)();
+      master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+      // Warm hall: two feedback delays, low-passed
+      wet=ctx.createGain();wet.gain.value=.5;
+      var d1=ctx.createDelay(1),d2=ctx.createDelay(1),f1=ctx.createGain(),f2=ctx.createGain(),lp=ctx.createBiquadFilter();
+      d1.delayTime.value=.23;d2.delayTime.value=.37;f1.gain.value=.42;f2.gain.value=.34;
+      lp.type='lowpass';lp.frequency.value=2600;
+      wet.connect(d1);wet.connect(d2);d1.connect(f1);f1.connect(d1);d2.connect(f2);f2.connect(d2);
+      d1.connect(lp);d2.connect(lp);lp.connect(master);
+    }
+    function bow(freq,when,dur,gain,bright){
+      // Two detuned saws through a lowpass with slow bow attack, gentle vibrato
+      var o1=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+      o1.type='sawtooth';o2.type='sawtooth';
+      o1.frequency.value=freq;o2.frequency.value=freq;o1.detune.value=-5;o2.detune.value=5;
+      var lfo=ctx.createOscillator(),lg=ctx.createGain();
+      lfo.frequency.value=4.6;lg.gain.value=freq*.004;lfo.connect(lg);lg.connect(o1.frequency);lg.connect(o2.frequency);
+      f.type='lowpass';f.frequency.value=bright?Math.min(freq*4.5,2400):520;f.Q.value=.7;
+      var a=Math.min(.16,dur*.25),rel=Math.min(.5,dur*.6),end=when+dur;
+      g.gain.setValueAtTime(0,when);
+      g.gain.linearRampToValueAtTime(gain,when+a);
+      g.gain.setValueAtTime(gain*.92,Math.max(when+a,end-rel));
+      g.gain.linearRampToValueAtTime(0,end+.08);
+      o1.connect(f);o2.connect(f);f.connect(g);g.connect(master);g.connect(wet);
+      o1.start(when);o2.start(when);lfo.start(when);
+      o1.stop(end+.15);o2.stop(end+.15);lfo.stop(end+.15);
+    }
+    function schedule(){
+      while(startTime+nextBeat*BEAT < ctx.currentTime+LOOK){
+        var t=startTime+nextBeat*BEAT;
+        // Cello ground — enters immediately, walks forever
+        bow(hz(GROUND[nextBeat%8]),t,BEAT*1.02,.34,false);
+        // Violins in canon
+        for(var v=0;v<3;v++){
+          var local=nextBeat-ENTRIES[v];
+          if(local<0)continue;
+          var pos=local%LOOP;
+          for(var i=0;i<starts.length;i++){
+            var n=starts[i];
+            if(n.beat>=pos+1)break;
+            if(n.beat>=pos){bow(hz(n.midi),t+(n.beat-pos)*BEAT,n.dur*BEAT*.98,VOICE_GAIN[v],true);}
+          }
+        }
+        nextBeat++;
+      }
+    }
+    return {
+      toggle:function(){
+        if(!ctx)init();
+        if(ctx.state==='suspended')ctx.resume();
+        if(!playing){
+          playing=true;nextBeat=0;startTime=ctx.currentTime+.1;
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.setValueAtTime(0,ctx.currentTime);
+          master.gain.linearRampToValueAtTime(.5,ctx.currentTime+2.5);
+          timer=setInterval(schedule,TICK);schedule();
+        }else{
+          playing=false;clearInterval(timer);
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.setValueAtTime(master.gain.value,ctx.currentTime);
+          master.gain.linearRampToValueAtTime(0,ctx.currentTime+1.2);
+        }
+        return playing;
+      }
+    };
+  })();
+  var qBtn=document.getElementById('quartet');
+  qBtn.addEventListener('click',function(){
+    var on=QuartetEngine.toggle();
+    qBtn.classList.toggle('playing',on);
+    qBtn.setAttribute('aria-pressed',on?'true':'false');
   });
 
   // Share
