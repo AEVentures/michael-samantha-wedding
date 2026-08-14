@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Planning Hub — Michael &amp; Samantha 08.08.2028</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✦</text></svg>" />
+<style>
+  :root{--night:#0e1410;--ivory:#f5efe3;--gold:#c9a86a;--gold-soft:#e2ca97;--rose:#d8a7a0;--fern:#8fae94}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:var(--night);color:var(--ivory);line-height:1.65;font-weight:300}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
+  a{color:var(--gold-soft);text-decoration:none}a:hover{color:var(--gold)}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  header{padding:110px 0 40px;text-align:center}
+  h1{font-size:clamp(2rem,5vw,3rem)}
+  .eyebrow{letter-spacing:.35em;text-transform:uppercase;font-size:.7rem;color:var(--gold);margin-bottom:14px}
+  section{padding:44px 0}
+  h2{font-size:1.9rem;color:var(--gold-soft);margin-bottom:8px}
+  .sub{font-size:.85rem;color:var(--fern);margin-bottom:24px}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(14,20,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,106,.15)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  nav .mark{font-family:'Cormorant Garamond',serif;color:var(--gold-soft)}
+  nav ul{display:flex;gap:20px;list-style:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+  nav ul a{color:var(--ivory);opacity:.85}
+  .card{background:linear-gradient(160deg,rgba(34,49,42,.55),rgba(22,34,26,.75));border:1px solid rgba(201,168,106,.18);border-radius:14px;padding:26px;margin-bottom:18px}
+  .card h3{color:var(--gold-soft);font-size:1.35rem;margin-bottom:6px}
+  .card .meta{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+  .card p,.card li{font-size:.9rem;color:#d5d1c4}
+  .card ul{padding-left:20px;margin:8px 0}
+  .flag{border-left:3px solid var(--rose);padding:10px 14px;background:rgba(216,167,160,.08);border-radius:0 8px 8px 0;font-size:.88rem;margin:12px 0}
+  .ok{border-left-color:var(--fern);background:rgba(143,174,148,.08)}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:10px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(201,168,106,.15);vertical-align:top}
+  th{color:var(--gold);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+  .phase{margin-bottom:8px}
+  details{border:1px solid rgba(201,168,106,.18);border-radius:12px;margin-bottom:12px;background:rgba(22,34,26,.6)}
+  summary{cursor:pointer;padding:16px 20px;font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--gold-soft);list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::after{content:'✦';color:var(--gold);font-size:.8rem}
+  details[open] summary::after{content:'✧'}
+  .tasks{padding:0 20px 16px}
+  .task{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid rgba(201,168,106,.08);font-size:.88rem;color:#d5d1c4}
+  .task input{margin-top:4px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer}
+  .task label{cursor:pointer}
+  .task.done label{text-decoration:line-through;opacity:.5}
+  .progress{height:6px;background:rgba(201,168,106,.12);border-radius:99px;overflow:hidden;margin:8px 0 26px}
+  .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--fern),var(--gold));width:0;transition:width .4s}
+  footer{padding:60px 24px;text-align:center;font-size:.78rem;color:var(--fern);border-top:1px solid rgba(201,168,106,.15);margin-top:40px}
+  .btnrow a{display:inline-block;border:1px solid var(--gold);color:var(--gold-soft);border-radius:99px;padding:8px 20px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin:4px 6px 0 0}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="mark">M ✦ S — Planning Hub</span>
+    <ul>
+      <li><a href="#venues">Venues</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#vendors">Vendors</a></li>
+      <li><a href="../">Guest Site</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">For Michael, Samantha &amp; our wedding team</p>
+    <h1>Wedding Planning Hub</h1>
+    <p class="sub">Everything we need to plan 08.08.2028 — share this page with planners and vendors.</p>
+  </div>
+</header>
+
+<section id="venues">
+  <div class="wrap">
+    <h2>Venue Candidates</h2>
+    <p class="sub">Researched August 2026. Confirm pricing and availability directly — 2028 rates will differ.</p>
+
+    <div class="flag">
+      <strong>Important:</strong> August 8, 2028 falls on a <strong>Tuesday</strong>. St. Patrick's Cathedral
+      celebrates weddings <strong>only on Saturdays</strong> — so keeping the exact 8/8/28 date rules it out
+      (nearest Saturdays: August 5 or 12, 2028). The California venues host weekday weddings, often at lower rates.
+    </div>
+
+    <div class="card">
+      <h3>1. Roaring Camp Railroads — Felton, CA (Santa Cruz Redwoods)</h3>
+      <p class="meta">Steam train · Cathedral Grove fairy circle · Barn reception</p>
+      <p>An exclusive-use, 100-year-old steam train carries you and your guests through the forest to
+        <em>Cathedral Grove</em> — a natural fairy circle of redwoods atop Bear Mountain — for the ceremony.
+        Reception in Bret Harte Hall, a 6,120 sq ft redwood barn with wrought-iron chandeliers and twinkle
+        lights, opening onto a lawn with fire barrel and s'mores. This is the "train in the redwoods" venue.</p>
+      <ul>
+        <li><strong>Capacity:</strong> 80–300 guests in the barn</li>
+        <li><strong>Packages (2026 rates):</strong> Cathedral Grove w/ steam train ~$14,000 · Schoolhouse Lawn ~$12,000 · Barn ~$10,000 (catering additional; BYO beer/wine with no corkage)</li>
+        <li><strong>Contact:</strong> roaringcamp.com · Wedding coordinator on staff · 5401 Graham Hill Rd, Felton, CA 95018</li>
+      </ul>
+      <div class="flag ok"><strong>Fit:</strong> Celestial-and-earthy, woodland-fairy magic, the train Michael remembered. A ceremony inside a redwood fairy circle is deeply church-like — and a priest or pastor can officiate a Christian ceremony on site.</div>
+    </div>
+
+    <div class="card">
+      <h3>2. Nestldown — Los Gatos, CA (Santa Cruz Mountains)</h3>
+      <p class="meta">36 acres · Redwoods, gardens, ponds &amp; waterfalls · Tiny forest train</p>
+      <p>A private family-owned estate: redwood ceremony grove with ferns, lush gardens, two ponds with
+        waterfalls, a barn with floor-to-ceiling windows and grand chandeliers — plus its own tiny train
+        through the forest and an adult-sized playhouse. Described by its owners as a healing, restorative place.</p>
+      <ul>
+        <li><strong>Pricing (2026):</strong> $14,950–$39,500 depending on season/day (weekdays cheaper)</li>
+        <li><strong>Tours:</strong> weekends by appointment · nestldown.com · 408-353-5311 · 22420 Old Santa Cruz Hwy, Los Gatos, CA 95033</li>
+      </ul>
+      <div class="flag ok"><strong>Fit:</strong> The most "woodland fairy" of all — perfect for Samantha. More manicured and intimate than Roaring Camp; higher price band.</div>
+    </div>
+
+    <div class="card">
+      <h3>3. St. Patrick's Cathedral — New York, NY</h3>
+      <p class="meta">Catholic sacramental ceremony · "America's Parish"</p>
+      <ul>
+        <li><strong>Requirements:</strong> at least one spouse baptized Catholic; residency in the Archdiocese of New York (or contiguous NYC diocese); initial interview at least one year before the date</li>
+        <li><strong>Saturdays only</strong> — conflicts with Tuesday 8/8/28</li>
+        <li><strong>Contact:</strong> weddings@saintpatrickscathedral.org</li>
+      </ul>
+      <div class="flag"><strong>Note for your situation:</strong> Since you married civilly, a Catholic church ceremony is called a <em>convalidation</em> — a true exchange of vows in the Church, warmly encouraged by the Archdiocese. It requires meeting with a parish priest and a short preparation period. Any Catholic parish can do this — including a Florida parish near home, or a Catholic chapel in California — if St. Patrick's residency/date rules don't fit.</div>
+    </div>
+
+    <div class="card">
+      <h3>Recommendation</h3>
+      <p>To keep the meaningful 08.08.2028 date <em>and</em> the sacred + woodland vision: hold the ceremony
+      in the redwoods (Roaring Camp's Cathedral Grove or Nestldown) with a priest/minister officiating. If a
+      formal Catholic convalidation matters, do it with your local parish first or that week, then celebrate
+      big under the trees. Tuesday dates book easily and cost less — but tour both venues in 2026/early 2027
+      to lock the date.</p>
+      <div class="btnrow">
+        <a href="https://roaringcamp.com/group-activities" target="_blank" rel="noopener">Roaring Camp</a>
+        <a href="https://www.nestldown.com/weddings/" target="_blank" rel="noopener">Nestldown</a>
+        <a href="https://saintpatrickscathedral.org/weddings" target="_blank" rel="noopener">St. Patrick's</a>
+        <a href="https://archny.org/ofl/convalidation-re-marriage/" target="_blank" rel="noopener">Convalidation Info</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="wrap">
+    <h2>Master Timeline — 24 Months Out</h2>
+    <p class="sub">Check items off as you go — progress is saved on this device. Overall progress:</p>
+    <div class="progress"><i id="bar"></i></div>
+    <div id="phases"></div>
+  </div>
+</section>
+
+<section id="vendors">
+  <div class="wrap">
+    <h2>Vendor Tracker</h2>
+    <p class="sub">Who we need, in booking order. Share the guest site's RSVP page with your planner so headcounts flow automatically to Michael's email.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Vendor</th><th>Book By</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Wedding planner</td><td>Fall 2026</td><td>Full-service planner familiar with Santa Cruz mountain venues; ask both venues for their preferred-planner lists</td></tr>
+          <tr><td>Venue</td><td>Winter 2026–27</td><td>Tour Roaring Camp &amp; Nestldown; Tuesday dates give leverage on price</td></tr>
+          <tr><td>Officiant / priest</td><td>Spring 2027</td><td>If Catholic convalidation: start with your parish ~12 months out</td></tr>
+          <tr><td>Photographer &amp; videographer</td><td>Spring 2027</td><td>Redwood-light specialists; golden hour in the grove is everything</td></tr>
+          <tr><td>Caterer</td><td>Summer 2027</td><td>Roaring Camp: in-house package or outside caterer/food trucks allowed</td></tr>
+          <tr><td>Florist</td><td>Fall 2027</td><td>Earthy + celestial: ferns, moss, garden roses, baby's breath "stars"; flower crown for Everly</td></tr>
+          <tr><td>Music (ceremony + reception)</td><td>Fall 2027</td><td>Acoustic strings in the grove; band or DJ in the barn</td></tr>
+          <tr><td>Attire</td><td>Fall 2027</td><td>Samantha's gown (9–12 months for made-to-order); Everly's flower girl dress closer in</td></tr>
+          <tr><td>Cake / desserts</td><td>Winter 2027–28</td><td>Roaring Camp displays desserts on a wagon wheel; s'mores at the fire barrel</td></tr>
+          <tr><td>Hair &amp; makeup</td><td>Winter 2027–28</td><td>Trial in spring 2028</td></tr>
+          <tr><td>Transport &amp; hotel blocks</td><td>Spring 2028</td><td>SJC/SFO airports; blocks in Santa Cruz, Scotts Valley, or Los Gatos</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Michael &amp; Samantha · 08.08.2028 · Planning Hub — share freely with planners and vendors ✦
+</footer>
+
+<script>
+(function(){
+  var phases=[
+    {name:'Now — Fall 2026 (24–22 months out)',tasks:[
+      'Set the budget and guest count range',
+      'Email Roaring Camp for their wedding brochure, 2028 pricing, and Tuesday 8/8/28 availability',
+      'Book a weekend tour at Nestldown (tours by appointment, weekends only)',
+      'If Catholic ceremony matters: meet with your home parish priest about convalidation',
+      'Decide: keep exact 8/8/28 (Tuesday) or move to Saturday 8/5 or 8/12',
+      'Start a shared guest list spreadsheet with addresses and emails']},
+    {name:'Winter 2026–27 (21–18 months out)',tasks:[
+      'Tour both California venues in person',
+      'Sign the venue contract and pay the deposit — the date is locked',
+      'Hire the wedding planner',
+      'Send the save-the-date website link to family and close friends',
+      'Book photographer and videographer']},
+    {name:'2027 (18–8 months out)',tasks:[
+      'Book officiant, caterer, florist, and music',
+      'Samantha: order the gown (made-to-order takes 6–9 months)',
+      'Michael: plan attire for you and any groomsmen',
+      'Choose Everly\u2019s flower girl dress and flower crown',
+      'Reserve hotel room blocks and note them on the guest site',
+      'Engagement/anniversary photo session in the redwoods for the website',
+      'Complete convalidation preparation with the parish (if applicable)']},
+    {name:'Spring 2028 (5–3 months out)',tasks:[
+      'Mail formal invitations (RSVP via the website)',
+      'Menu tasting and final catering selections',
+      'Hair and makeup trial',
+      'Book guest shuttles (mountain roads — highly recommended)',
+      'Marriage convalidation paperwork: baptismal certificates dated within 6 months (if Catholic ceremony)']},
+    {name:'Summer 2028 (final 8 weeks)',tasks:[
+      'Final headcount to caterer and venue (usually 2 weeks out)',
+      'Write the vows',
+      'Confirm every vendor with a day-of timeline from the planner',
+      'Seating chart and place cards',
+      'Rehearsal at the venue — practice the train timing and Everly\u2019s walk',
+      'Breathe. August 8, 2028: say your vows under God and the trees ✦']}
+  ];
+  var KEY='msWeddingTasks';
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){saved={}}
+  var root=document.getElementById('phases'),total=0,done=0;
+  phases.forEach(function(ph,pi){
+    var d=document.createElement('details');if(pi===0)d.open=true;
+    var s=document.createElement('summary');s.textContent=ph.name;d.appendChild(s);
+    var box=document.createElement('div');box.className='tasks';
+    ph.tasks.forEach(function(t,ti){
+      var id='p'+pi+'t'+ti;total++;
+      var row=document.createElement('div');row.className='task';
+      var cb=document.createElement('input');cb.type='checkbox';cb.id=id;cb.checked=!!saved[id];
+      if(cb.checked){row.classList.add('done');done++;}
+      var lb=document.createElement('label');lb.htmlFor=id;lb.textContent=t;
+      cb.addEventListener('change',function(){
+        saved[id]=cb.checked;localStorage.setItem(KEY,JSON.stringify(saved));
+        row.classList.toggle('done',cb.checked);
+        done+=cb.checked?1:-1;bar();
+      });
+      row.appendChild(cb);row.appendChild(lb);box.appendChild(row);
+    });
+    d.appendChild(box);root.appendChild(d);
+  });
+  function bar(){document.getElementById('bar').style.width=(total?Math.round(done/total*100):0)+'%'}
+  bar();
+})();
+</script>
+</body>
+</html>

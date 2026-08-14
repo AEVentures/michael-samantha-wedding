@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Michael &amp; Samantha — August 8, 2028</title>
+<meta name="description" content="Michael and Samantha Castellano invite you to celebrate the blessing of their marriage — August 8, 2028." />
+<meta property="og:title" content="Michael &amp; Samantha — 08.08.2028" />
+<meta property="og:description" content="Under the stars, among the trees. Join us as we celebrate the blessing of our marriage." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✦</text></svg>" />
+<style>
+  :root{
+    --night:#0e1410; --forest:#16221a; --moss:#22312a;
+    --ivory:#f5efe3; --gold:#c9a86a; --gold-soft:#e2ca97;
+    --rose:#d8a7a0; --fern:#8fae94; --ink:#2a2f2a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--night);color:var(--ivory);line-height:1.7;font-weight:300}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:500}
+  a{color:var(--gold-soft);text-decoration:none}
+  a:hover{color:var(--gold)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0;position:relative}
+  .eyebrow{letter-spacing:.35em;text-transform:uppercase;font-size:.72rem;color:var(--gold);margin-bottom:18px}
+  h2{font-size:clamp(2rem,5vw,2.8rem);color:var(--ivory);margin-bottom:24px}
+  .divider{width:72px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto}
+  .center{text-align:center}
+
+  /* Nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(14,20,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,106,.15)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  nav .mark{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold-soft);letter-spacing:.08em}
+  nav ul{display:flex;gap:26px;list-style:none;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  nav ul a{color:var(--ivory);opacity:.85}
+  nav ul a:hover{color:var(--gold-soft)}
+  @media(max-width:720px){nav ul{gap:14px;font-size:.66rem}}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 0%,#1c2a20 0%,var(--night) 62%)}
+  #stars{position:absolute;inset:0;pointer-events:none}
+  .hero-inner{position:relative;z-index:2;padding:120px 24px 80px}
+  .hero .names{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,8vw,5rem);line-height:1.15;color:var(--ivory)}
+  .hero .amp{font-style:italic;color:var(--gold);font-size:.7em;display:inline-block;margin:0 .18em}
+  .hero .date{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.7rem);letter-spacing:.3em;color:var(--gold-soft);margin-top:22px}
+  .hero .sub{margin-top:16px;font-size:.9rem;color:var(--fern);letter-spacing:.12em}
+  .branch{color:var(--fern);opacity:.7;font-size:1.4rem;margin:26px 0 0;letter-spacing:.5em}
+
+  /* Countdown */
+  .count{display:flex;gap:clamp(14px,4vw,40px);justify-content:center;margin-top:44px;flex-wrap:wrap}
+  .count div{min-width:76px}
+  .count .n{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3rem);color:var(--gold-soft)}
+  .count .l{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--fern)}
+
+  .card{background:linear-gradient(160deg,rgba(34,49,42,.55),rgba(22,34,26,.75));border:1px solid rgba(201,168,106,.18);border-radius:14px;padding:34px}
+  .grid{display:grid;gap:22px}
+  @media(min-width:720px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+  .card h3{color:var(--gold-soft);font-size:1.4rem;margin-bottom:10px}
+  .card p{font-size:.92rem;color:#d8d4c8}
+  .tag{display:inline-block;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);border:1px solid rgba(216,167,160,.35);border-radius:99px;padding:3px 12px;margin-bottom:14px}
+
+  /* Story timeline */
+  .story-line{border-left:1px solid rgba(201,168,106,.3);margin-left:8px;padding-left:28px;display:flex;flex-direction:column;gap:30px}
+  .story-line .dot{position:relative}
+  .story-line .dot::before{content:'✦';position:absolute;left:-38px;top:0;color:var(--gold);font-size:.8rem}
+  .story-line h3{color:var(--gold-soft);font-size:1.25rem}
+  .story-line p{font-size:.92rem;color:#cfcabd}
+
+  /* RSVP form */
+  form{display:grid;gap:16px}
+  label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fern)}
+  input,select,textarea{width:100%;background:rgba(14,20,16,.6);border:1px solid rgba(201,168,106,.25);border-radius:8px;padding:12px 14px;color:var(--ivory);font-family:'Inter',sans-serif;font-size:.95rem}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+  .btn{display:inline-block;background:linear-gradient(135deg,var(--gold),#a9884e);color:#141a15;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;padding:15px 34px;border:none;border-radius:99px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,106,.35)}
+  .btn.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold-soft)}
+  .field2{display:grid;gap:16px}
+  @media(min-width:640px){.field2{grid-template-columns:1fr 1fr}}
+  .form-note{font-size:.8rem;color:var(--fern)}
+
+  footer{padding:70px 24px;text-align:center;border-top:1px solid rgba(201,168,106,.15)}
+  footer .serif{font-size:1.3rem;color:var(--gold-soft)}
+  footer p{font-size:.78rem;color:var(--fern);margin-top:10px}
+  .verse{font-style:italic;color:var(--rose);font-family:'Cormorant Garamond',serif;font-size:1.15rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="mark">M ✦ S</span>
+    <ul>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#travel">Travel</a></li>
+      <li><a href="planning/">Planning Hub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="stars"></canvas>
+  <div class="hero-inner">
+    <p class="eyebrow">Together with their families</p>
+    <h1 class="names">Michael <span class="amp">&amp;</span> Samantha</h1>
+    <p class="date">08 · 08 · 2028</p>
+    <p class="sub">THE BLESSING OF OUR MARRIAGE — A CHURCH CEREMONY UNDER GOD</p>
+    <p class="branch">❦ ✦ ❦</p>
+    <div class="count" id="countdown">
+      <div><div class="n" id="cd-d">—</div><div class="l">Days</div></div>
+      <div><div class="n" id="cd-h">—</div><div class="l">Hours</div></div>
+      <div><div class="n" id="cd-m">—</div><div class="l">Minutes</div></div>
+      <div><div class="n" id="cd-s">—</div><div class="l">Seconds</div></div>
+    </div>
+    <div style="margin-top:44px"><a class="btn" href="#rsvp">Save the Date &amp; RSVP</a></div>
+  </div>
+</header>
+
+<section id="story">
+  <div class="wrap">
+    <p class="eyebrow center">Our Story</p>
+    <h2 class="center">Already Married. Now, Before God.</h2>
+    <div class="divider"></div>
+    <p class="center" style="max-width:640px;margin:0 auto 48px;color:#cfcabd">
+      We said yes to each other at the courthouse — quietly, simply, truly.
+      Now we gather everyone we love to celebrate the ceremony our hearts have been waiting for:
+      our vows blessed in the presence of God, family, and friends.
+    </p>
+    <div class="story-line">
+      <div class="dot">
+        <h3>The Beginning</h3>
+        <p>Michael and Samantha found each other and knew. He calls her his North Star — the nearest light to the pole.</p>
+      </div>
+      <div class="dot">
+        <h3>The Courthouse</h3>
+        <p>We made it legal and made it real. A marriage certificate, two signatures, and a promise that has only grown.</p>
+      </div>
+      <div class="dot">
+        <h3>Our Family</h3>
+        <p>Life has blessed us beyond measure — including our beloved Everly, who will lead the way down the aisle as our flower girl.</p>
+      </div>
+      <div class="dot">
+        <h3>August 8, 2028</h3>
+        <p>Under towering trees and open sky, we exchange our vows before God — celestial and earthy, just like us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="details" style="background:linear-gradient(180deg,transparent,rgba(34,49,42,.35),transparent)">
+  <div class="wrap">
+    <p class="eyebrow center">The Celebration</p>
+    <h2 class="center">Ceremony &amp; Reception</h2>
+    <div class="divider"></div>
+    <div class="grid c3">
+      <div class="card">
+        <span class="tag">When</span>
+        <h3>Tuesday, August 8, 2028</h3>
+        <p>Ceremony in the late afternoon, golden hour photographs, dinner and dancing under the stars. Full schedule to follow with your invitation.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Where</span>
+        <h3>Venue — To Be Revealed</h3>
+        <p>We are choosing between breathtaking candidates, including a redwood cathedral grove reached by steam train in the Santa Cruz mountains. Watch this space.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Who</span>
+        <h3>You, Of Course</h3>
+        <p>Our family and dearest friends — with Everly as our flower girl. Formal invitations will follow this save-the-date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rsvp">
+  <div class="wrap" style="max-width:680px">
+    <p class="eyebrow center">Kindly Respond</p>
+    <h2 class="center">Save the Date &amp; RSVP</h2>
+    <div class="divider"></div>
+    <div class="card">
+      <form action="https://formsubmit.co/mccastellano@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Wedding RSVP — Michael & Samantha 08.08.2028" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <div class="field2">
+          <div><label for="name">Full Name</label><input id="name" name="name" required autocomplete="name" /></div>
+          <div><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+        </div>
+        <div class="field2">
+          <div>
+            <label for="attending">Will you join us?</label>
+            <select id="attending" name="attending" required>
+              <option value="">Please choose…</option>
+              <option>Joyfully accepts</option>
+              <option>Regretfully declines</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div><label for="party">Number in your party</label><input id="party" name="party_size" type="number" min="1" max="12" value="1" /></div>
+        </div>
+        <div><label for="notes">Anything we should know? (dietary needs, song requests, little ones)</label><textarea id="notes" name="notes" rows="3"></textarea></div>
+        <div class="center"><button class="btn" type="submit">Send RSVP</button></div>
+        <p class="form-note center">Your response goes straight to Michael &amp; Samantha.</p>
+      </form>
+    </div>
+    <div class="center" style="margin-top:26px">
+      <a class="btn ghost" id="calBtn" href="#">Add to Calendar (.ics)</a>
+      <a class="btn ghost" id="shareBtn" href="#" style="margin-left:10px">Share this Page</a>
+    </div>
+  </div>
+</section>
+
+<section id="travel" style="background:linear-gradient(180deg,transparent,rgba(34,49,42,.35),transparent)">
+  <div class="wrap">
+    <p class="eyebrow center">Travel &amp; Stay</p>
+    <h2 class="center">Getting There</h2>
+    <div class="divider"></div>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Travel Details Coming Soon</h3>
+        <p>Once our venue is confirmed, we'll post the nearest airports, hotel room blocks, and shuttle plans right here. If the redwoods win, plan for San Jose (SJC) or San Francisco (SFO).</p>
+      </div>
+      <div class="card">
+        <h3>Registry</h3>
+        <p>Your presence is the greatest gift. A registry (and a honeymoon fund) will appear here with the formal invitations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="verse">"Therefore what God has joined together, let no one separate." — Mark 10:9</p>
+  <div class="divider"></div>
+  <p class="serif">Michael &amp; Samantha Castellano · 08.08.2028</p>
+  <p>With Everly, our flower girl, leading the way ✦</p>
+</footer>
+
+<script>
+(function(){
+  // Countdown to Aug 8, 2028 4:00 PM PT
+  var target = new Date('2028-08-08T16:00:00-07:00').getTime();
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var d = target - Date.now();
+    if(d<0)d=0;
+    document.getElementById('cd-d').textContent = Math.floor(d/86400000);
+    document.getElementById('cd-h').textContent = pad(Math.floor(d/3600000)%24);
+    document.getElementById('cd-m').textContent = pad(Math.floor(d/60000)%60);
+    document.getElementById('cd-s').textContent = pad(Math.floor(d/1000)%60);
+  }
+  tick(); setInterval(tick,1000);
+
+  // Starfield with drifting fireflies (celestial + earthy)
+  var c = document.getElementById('stars'), x = c.getContext('2d'), W, H, stars=[], flies=[];
+  function size(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;
+    stars=[];for(var i=0;i<140;i++)stars.push({x:Math.random()*W,y:Math.random()*H*.8,r:Math.random()*1.3+.3,p:Math.random()*Math.PI*2,s:.008+Math.random()*.02});
+    flies=[];for(var j=0;j<16;j++)flies.push({x:Math.random()*W,y:H*.55+Math.random()*H*.45,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.2,p:Math.random()*Math.PI*2});
+  }
+  size(); window.addEventListener('resize',size);
+  (function draw(){
+    x.clearRect(0,0,W,H);
+    stars.forEach(function(s){s.p+=s.s;var a=.35+.5*Math.abs(Math.sin(s.p));
+      x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fillStyle='rgba(245,239,227,'+a+')';x.fill();});
+    flies.forEach(function(f){f.p+=.03;f.x+=f.vx;f.y+=f.vy+Math.sin(f.p)*.15;
+      if(f.x<0)f.x=W;if(f.x>W)f.x=0;if(f.y<H*.4)f.y=H;if(f.y>H)f.y=H*.5;
+      var a=.15+.4*Math.abs(Math.sin(f.p));
+      x.beginPath();x.arc(f.x,f.y,1.8,0,7);x.fillStyle='rgba(226,202,151,'+a+')';x.fill();});
+    requestAnimationFrame(draw);
+  })();
+
+  // ICS download
+  document.getElementById('calBtn').addEventListener('click',function(e){
+    e.preventDefault();
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MS Wedding//EN','BEGIN:VEVENT',
+      'UID:ms-wedding-2028@castellano','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
+      'DTSTART;VALUE=DATE:20280808','DTEND;VALUE=DATE:20280809',
+      'SUMMARY:Michael & Samantha — Wedding Ceremony','DESCRIPTION:The blessing of our marriage. Details to follow.',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var a=document.createElement('a');
+    a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+    a.download='Michael-Samantha-Wedding-2028.ics';a.click();
+  });
+
+  // Share
+  document.getElementById('shareBtn').addEventListener('click',function(e){
+    e.preventDefault();
+    var data={title:'Michael & Samantha — 08.08.2028',text:'Save the date! Join us as we celebrate the blessing of our marriage.',url:location.href};
+    if(navigator.share){navigator.share(data).catch(function(){});}
+    else{navigator.clipboard.writeText(location.href).then(function(){e.target.textContent='Link Copied ✦';});}
+  });
+})();
+</script>
+</body>
+</html>
